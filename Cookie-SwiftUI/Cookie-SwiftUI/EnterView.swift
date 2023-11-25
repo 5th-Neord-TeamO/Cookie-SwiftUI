@@ -11,12 +11,12 @@ import Combine
 struct EnterView: View {
     @Environment(\.presentationMode) var presentationMode
     @State private var code: [String] = Array(repeating: "", count: 4)
-    @State private var hasUserInteracted = false 
-
+    @State private var hasUserInteracted = false
+    
     var isCodeComplete: Bool {
         return code.allSatisfy { !$0.isEmpty }
     }
-
+    
     var body: some View {
         NavigationView {
             VStack {
@@ -37,7 +37,7 @@ struct EnterView: View {
                             Font.system(size: 11)
                                 .weight(.bold)
                         )
-                      .foregroundColor(Color(red: 0.21, green: 0.07, blue: 0.07))
+                        .foregroundColor(Color(red: 0.21, green: 0.07, blue: 0.07))
                 }
                 
                 HStack(spacing: 10) {
@@ -68,38 +68,43 @@ struct EnterView: View {
                     Image("join-cookie")
                 }
                 
-                Button("참여하기") {
+                Button(action: {
                     if isCodeComplete {
                         print(code.joined())
                     }
+                }) {
+                    NavigationLink(destination: InviteView()) {
+                        Text("참여하기")
+                            .font(
+                                Font.system(size: 24)
+                                    .weight(.semibold)
+                            )
+                            .foregroundColor(.black)
+                            .frame(width: 329, height: 70)
+                            .background(isCodeComplete ? Color.white : Color(UIColor(red: 1, green: 1, blue: 1, alpha: 0.5)))
+                            .cornerRadius(20)
+                            .shadow(color: .black.opacity(0.25), radius: 5, x: 0, y: 2)
+                            .padding(.bottom, 20)
+                            .disabled(!isCodeComplete)
+                    }
                 }
-                .font(
-                    Font.system(size: 24)
-                        .weight(.semibold)
-                )
-                .foregroundColor(.black)
-                .frame(width: 329, height: 70)
-                .background(isCodeComplete ? Color.white : Color(UIColor(red: 1, green: 1, blue: 1, alpha: 0.5)))
-                .cornerRadius(20)
-                .shadow(color: .black.opacity(0.25), radius: 5, x: 0, y: 2)
-                .padding(.bottom, 20)
-                .disabled(!isCodeComplete)
             }
             .background(Image("background2")
                 .aspectRatio(contentMode: .fill)
                 .ignoresSafeArea())
+            .navigationBarBackButtonHidden(true)
+            .navigationBarItems(
+                leading: HStack {
+                    Button(action: {
+                        presentationMode.wrappedValue.dismiss()
+                    }) {
+                        
+                    }
+                    .buttonStyle(RoundedRectangleButtonStyle())
+                }
+            )
         }
         .navigationBarBackButtonHidden(true)
-        .navigationBarItems(
-            leading: HStack {
-                Button(action: {
-                    presentationMode.wrappedValue.dismiss()
-                }) {
-                    
-                }
-                .buttonStyle(RoundedRectangleButtonStyle())
-            }
-        )
     }
 }
 

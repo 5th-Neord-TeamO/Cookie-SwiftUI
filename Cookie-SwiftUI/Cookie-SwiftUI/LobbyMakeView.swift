@@ -148,6 +148,27 @@ struct LobbyMakeView: View {
                             )
                             .lineLimit(2)
                         
+                        Button(action: {
+                            
+                        }){
+                            NavigationLink(destination: InviteView()) {
+                                Text("만들기")
+                                    .font(
+                                        Font.system(size: 20)
+                                            .weight(.semibold)
+                                    )
+                                    .foregroundColor(.white)
+                                    .frame(width: 323, height: 70)
+                                    .background(buttonBackgroundColor)
+                                    .cornerRadius(20)
+                                    .shadow(color: .black.opacity(0.25), radius: 5, x: 0, y: 2)
+                                    .padding(.bottom, 20)
+                                    .padding(.top, 20)
+                            }}
+
+                        .disabled(isButtonDisabled)
+                        
+                        /*
                         Button("만들기") {
                             
                         }
@@ -162,12 +183,13 @@ struct LobbyMakeView: View {
                         .shadow(color: .black.opacity(0.25), radius: 5, x: 0, y: 2)
                         .padding(.bottom, 20)
                         .padding(.top, 20)
+                        .disabled(isButtonDisabled)*/
                     }
                     .frame(width: 380, height: 619)
                     .background(.white)
                     .cornerRadius(40)
                     .shadow(color: Color(red: 0.34, green: 0.17, blue: 0.17).opacity(0.25), radius: 5, x: 0, y: 2)
-                    
+                    .padding(.horizontal, 5)
                 }
             }
             .background(Image("background")
@@ -193,7 +215,6 @@ struct LobbyMakeView: View {
                             .frame(width: 30, height: 30)
                             .padding(.trailing, 20)
                     }
-                    
                 }
             }
         )
